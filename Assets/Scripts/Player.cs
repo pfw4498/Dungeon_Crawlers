@@ -7,14 +7,16 @@ public class Player : MonoBehaviour
 	public GameObject bulletSpawn;
 	public GameObject bullet;
 	public GameObject shield;
+	public GameObject heavybullet;
 	
 	private int health = 10;
-	private int mana = 10;
+	public int mana = 10;
 	private const int MAXMANA = 15;
 	private const int MANAINCR = 1;
 	private const int MAXHEALTH = 15;
 	private const int HEALTHINCR = 1;
 	private float speed = .1f;
+	private const float REGEN = 1f;
 	
 	private Transform tm;
 	
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
 		space = KeyCode.Space;
 		shield.gameObject.SetActive(false);
 		tm = GetComponent<Transform>();
+		StartCoroutine("Regen");
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -47,10 +50,10 @@ public class Player : MonoBehaviour
 	{
 		// set shield to active
 		if(Input.GetKey(space)) {
-			//Debug.Log ("aaa");
+	
 			shield.gameObject.SetActive(true);
 		} else {
-			//Debug.Log("ggg");
+
 			shield.gameObject.SetActive(false);
 		}
 		
@@ -70,6 +73,15 @@ public class Player : MonoBehaviour
 		Shoot();
 	}
 
+	IEnumerator Regen() {
+		while(true) {
+			yield return new WaitForSeconds(REGEN);
+			if(mana < MAXMANA) {
+				mana++;
+			}
+		}
+	}
+
 	void Shoot()
 	{
 		Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -81,7 +93,34 @@ public class Player : MonoBehaviour
 		
 		if(Input.GetKeyDown(KeyCode.Mouse0))
 		{
+			if(mana>=2)
+			{
+
 			Instantiate(bullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+			mana-=2;
+
+			}
 		}
+		if(Input.GetKeyDown(KeyCode.Mouse1))
+		{
+			if(mana>=5)
+			{
+			Instantiate(heavybullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+			mana -=5;
+			
+		
+	        }
+        }
 	}
-}
+
+	void OnGUI()
+	{
+		GUIStyle style=new GUIStyle();
+
+		GUI.Box(new Rect(10,10,200,50), "Health: " + health + "\nMana: " + mana);
+
+
+	}
+
+
+}	
