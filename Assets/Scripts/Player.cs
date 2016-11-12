@@ -47,10 +47,10 @@ public class Player : MonoBehaviour
 	{
 		// set shield to active
 		if(Input.GetKey(space)) {
-			Debug.Log ("aaa");
+			//Debug.Log ("aaa");
 			shield.gameObject.SetActive(true);
 		} else {
-			Debug.Log("ggg");
+			//Debug.Log("ggg");
 			shield.gameObject.SetActive(false);
 		}
 		

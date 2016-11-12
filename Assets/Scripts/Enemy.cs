@@ -136,14 +136,17 @@ public class Enemy : MonoBehaviour
 		//Debug.Log("SEEKING: " + seek);
 		seek = true;
 		Shoot();
+		Bounce();
 		seekPoint = RandPoint();
 		//Debug.Log("seekPoint = " + seekPoint);
 	}
 
 	void Shoot()
 	{
-		float angle = Mathf.Atan2(position.y, GameObject.Find("Player").transform.position.x) * Mathf.Rad2Deg;
-		gameObject.transform.rotation = Quaternion.Euler(0,0,angle);
-		Instantiate(bullet, bulletSpawn.transform.position, gameObject.transform.rotation);
+		float angle = Mathf.Atan2((player.position.y - position.y), (position.x - player.position.x)) * Mathf.Rad2Deg;
+		//Debug.Log("ARCTANGENT = " + angle);
+		bulletSpawn.transform.rotation = Quaternion.Euler(0, 0, -angle - 180);
+
+		Instantiate(bullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
 	}
 }
