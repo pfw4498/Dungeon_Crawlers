@@ -4,17 +4,23 @@ using System.Collections;
 public class Shield : MonoBehaviour {
 
 	private Transform tm;
-	public KeyCode up, down, left, right;
-	bool rightleft = true;
+	private KeyCode up, down, left, right;
+	private bool rightleft = true;
 
 
 	// Use this for initialization
 	void Start () {
+		up = KeyCode.W;
+		down = KeyCode.S;
+		left = KeyCode.A;
+		right = KeyCode.D;
 		tm = GetComponent<Transform>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		// move shield in a given direction
 		if(Input.GetKey(up)) {
 			if(rightleft==true)
 			{

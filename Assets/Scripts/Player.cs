@@ -8,20 +8,25 @@ public class Player : MonoBehaviour
 	public GameObject bullet;
 	public GameObject shield;
 	
-	public int health;
-	public int mana;
-	public const int MAXMANA = 15;
-	public const int MANAINCR = 1;
-	public const int MAXHEALTH = 15;
-	public const int HEALTHINCR = 1;
-	public float speed = 2f;
+	private int health = 10;
+	private int mana = 10;
+	private const int MAXMANA = 15;
+	private const int MANAINCR = 1;
+	private const int MAXHEALTH = 15;
+	private const int HEALTHINCR = 1;
+	private float speed = .1f;
 
 	private Transform tm;
 
-	public KeyCode up, down, left, right, space;
+	private KeyCode up, down, left, right, space;
 	// Use this for initialization
 	void Awake () 
 	{
+		up = KeyCode.W;
+		down = KeyCode.S;
+		left = KeyCode.A;
+		right = KeyCode.D;
+		space = KeyCode.Space;
 		shield.gameObject.SetActive(false);
 		tm = GetComponent<Transform>();
 	}
