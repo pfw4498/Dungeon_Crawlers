@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
 			mana += MANAINCR;
 			Destroy(coll.gameObject);
 		}
+
 	}
 
 	// Update is called once per frame
