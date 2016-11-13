@@ -25,12 +25,12 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Awake() 
 	{
+		shield = GameObject.Find ("Shield");
 		up = KeyCode.W;
 		down = KeyCode.S;
 		left = KeyCode.A;
 		right = KeyCode.D;
 		space = KeyCode.Space;
-		shield.gameObject.SetActive(false);
 		tm = GetComponent<Transform>();
 		StartCoroutine("Regen");
 	}
