@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
 	public GameObject bullet;
 	public GameObject shield;
 	public GameObject heavybullet;
-	
+	public GameObject Die;
+
 	private int health = 10;
 	public int mana = 10;
 	private const int MAXMANA = 15;
@@ -43,7 +44,15 @@ public class Player : MonoBehaviour
 			mana += MANAINCR;
 			Destroy(coll.gameObject);
 		}
-
+		if(coll.gameObject.tag =="Enemy")
+		{
+			health-=1;
+			Destroy(coll.gameObject);
+	    }
+		if (health <= 0) {
+			Destroy(Die);
+		}
+		
 	}
 
 	// Update is called once per frame

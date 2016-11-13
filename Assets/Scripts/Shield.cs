@@ -16,7 +16,13 @@ public class Shield : MonoBehaviour {
 		right = KeyCode.D;
 		tm = GetComponent<Transform>();
 	}
-	
+
+	void OnCollisionEnter2D(Collision2D coll) {
+		if (coll.gameObject.tag == "Enemy") {
+			
+			Destroy (coll.gameObject);
+		}
+	}
 	// Update is called once per frame
 	void Update () {
 

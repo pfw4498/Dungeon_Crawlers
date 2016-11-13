@@ -4,8 +4,10 @@ using System.Collections;
 public class Enemy : MonoBehaviour 
 {
 	//float to reference speed, gameobject to reference itself
+	public GameObject Die;
+
 	public float speed;
-	
+	private int health;
 	//Vectors for movement
 	private Vector3 velocity;
 	private Vector3 direction;
@@ -29,11 +31,35 @@ public class Enemy : MonoBehaviour
 		position = transform.position;
 		direction = transform.rotation * direction;
 		seek = true;
+		health = 5;
+	}
+
+
+		
+		
+
+
+	void OnCollisionEnter2D(Collision2D coll)
+	{
+		if(coll.gameObject.tag =="Light")
+		{
+			health-=1;
+			Destroy(coll.gameObject);
+		}
+		if (coll.gameObject.tag == "Light"&& health <= 0) {
+			Destroy(Die.gameObject);
+		}
+		if(coll.gameObject.tag =="Heavy")
+		{
+			health-=3;
+			Destroy(coll.gameObject);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update() 
 	{
+
 		if(seek == true)
 		{
 			StartCoroutine("WaitTime");
@@ -136,14 +162,17 @@ public class Enemy : MonoBehaviour
 		//Debug.Log("SEEKING: " + seek);
 		seek = true;
 		Shoot();
+		Bounce();
 		seekPoint = RandPoint();
 		//Debug.Log("seekPoint = " + seekPoint);
 	}
 
 	void Shoot()
 	{
-		float angle = Mathf.Atan2(position.y, GameObject.Find("Player").transform.position.x) * Mathf.Rad2Deg;
-		gameObject.transform.rotation = Quaternion.Euler(0,0,angle);
-		Instantiate(bullet, bulletSpawn.transform.position, gameObject.transform.rotation);
+		float angle = Mathf.Atan2((player.position.y - position.y), (position.x - player.position.x)) * Mathf.Rad2Deg;
+		//Debug.Log("ARCTANGENT = " + angle);
+		bulletSpawn.transform.rotation = Quaternion.Euler(0, 0, -angle - 180);
+
+		Instantiate(bullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
 	}
 }
