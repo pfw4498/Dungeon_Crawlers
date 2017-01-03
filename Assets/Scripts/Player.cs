@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
 	private const float REGEN = 1f;
 	
 	private Transform tm;
-	
+	private Animator anim;
+
 	private KeyCode up, down, left, right, space;
 	// Use this for initialization
 	void Awake() 
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
 		space = KeyCode.Space;
 		shield.gameObject.SetActive(false);
 		tm = GetComponent<Transform>();
+		anim = GetComponent<Animator>();
 		StartCoroutine("Regen");
 	}
 
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour
 		{
 			health-=1;
 			Destroy(coll.gameObject);
+			anim.SetTrigger("Damage");
 	    }
 		if (health <= 0) {
 			Destroy(Die);
@@ -68,6 +71,15 @@ public class Player : MonoBehaviour
 		}
 		
 		// general movement
+		if(Input.GetKey(up) || Input.GetKey(down) || Input.GetKey(left) || Input.GetKey(right))
+		{
+			anim.SetBool("IsWalking", true);
+		}
+		else
+		{
+			anim.SetBool("IsWalking", false);
+		}
+
 		if(Input.GetKey(up)) {
 			tm.Translate(Vector2.up * speed);
 		} else if(Input.GetKey(down)) {
@@ -105,20 +117,19 @@ public class Player : MonoBehaviour
 		{
 			if(mana>=2)
 			{
-
-			Instantiate(bullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
-			mana-=2;
-
+				Instantiate(bullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+				mana-=2;
+				anim.SetTrigger("LeftClick");
+				anim.SetBool("IsLeft", !anim.GetBool("IsLeft"));
 			}
 		}
 		if(Input.GetKeyDown(KeyCode.Mouse1))
 		{
 			if(mana>=5)
 			{
-			Instantiate(heavybullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
-			mana -=5;
-			
-		
+				Instantiate(heavybullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+				mana -=5;
+				anim.SetTrigger("RightClick");
 	        }
         }
 	}

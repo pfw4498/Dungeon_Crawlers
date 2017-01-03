@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Health
   - Mana
+  - Enemy
+  - Enemy Char
+  - Heavy
+  - Light
   layers:
   - Default
   - TransparentFX
@@ -42,4 +46,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2885664171
     locked: 0
