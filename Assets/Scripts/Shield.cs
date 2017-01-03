@@ -5,7 +5,6 @@ public class Shield : MonoBehaviour {
 
 	private Transform tm;
 	private KeyCode up, down, left, right;
-	private bool rightdir = true, leftdir = false, updir = false, downdir = false;
 
 
 	// Use this for initialization
@@ -28,48 +27,13 @@ public class Shield : MonoBehaviour {
 
 		// move shield in a given direction
 		if(Input.GetKey(up)) {
-			if(updir==false)
-			{
-				tm.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
-				tm.position = new Vector2(tm.parent.position.x + 0, tm.parent.position.y + .7f);
-				rightdir = false; leftdir = false; updir = true; downdir = false;
-			}
-			else{
-				tm.position = new Vector2(tm.parent.position.x + 0, tm.parent.position.y + .7f);
-			}
+			tm.position = new Vector2(tm.parent.position.x + 0, tm.parent.position.y + 1f);
 		} else if(Input.GetKey(down)) {
-			if(downdir==false)
-			{
-				tm.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
-				tm.position = new Vector2(tm.parent.position.x + 0, tm.parent.position.y - .7f);
-				rightdir = false; leftdir = false; updir = false; downdir = true;
-			}
-			else{
-				tm.position = new Vector2(tm.parent.position.x + 0, tm.parent.position.y - .7f);
-			}
-
-
-		} else if(Input.GetKey(left)) {
-			if(leftdir==false)
-			{
-				tm.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
-				tm.position = new Vector2(tm.parent.position.x -.7f, tm.parent.position.y );
-				rightdir = false; leftdir = true; updir = false; downdir = false;;
-			}
-			else{
-				tm.position = new Vector2(tm.parent.position.x -.7f, tm.parent.position.y);
-			}
-			
+			tm.position = new Vector2(tm.parent.position.x + 0, tm.parent.position.y - 1f);
 		} else if(Input.GetKey(right)) {
-			if(rightdir==false)
-			{
-				tm.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-				tm.position = new Vector2(tm.parent.position.x + .7f, tm.parent.position.y);
-				rightdir = true; leftdir = false; updir = false; downdir = false;
-			}
-			else{
-				tm.position = new Vector2(tm.parent.position.x + .7f, tm.parent.position.y);
-			}
+			tm.position = new Vector2(tm.parent.position.x + 1f, tm.parent.position.y + 0);
+		} else if(Input.GetKey(left)) {
+			tm.position = new Vector2(tm.parent.position.x - 1f, tm.parent.position.y + 0);
 		}
 	}
 }

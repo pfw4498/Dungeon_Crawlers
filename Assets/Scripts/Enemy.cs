@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
 			health-=1;
 			Destroy(coll.gameObject);
 		}
-		if (coll.gameObject.tag == "Light"&& health <= 0) {
+		if (health <= 0) {
 			Destroy(Die.gameObject);
 		}
 		if(coll.gameObject.tag =="Heavy")
