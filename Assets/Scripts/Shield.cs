@@ -3,8 +3,10 @@ using System.Collections;
 
 public class Shield : MonoBehaviour {
 
+	public Player player;
 	private Transform tm;
 	private KeyCode up, down, left, right;
+	private bool updir = false, downdir = false, leftdir = false, rightdir = true;
 
 
 	// Use this for initialization
@@ -17,8 +19,8 @@ public class Shield : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.gameObject.tag == "Enemy") {
-			
+		if(coll.gameObject.tag =="Enemy") {
+			Debug.Log("Collision");
 			Destroy (coll.gameObject);
 		}
 	}
@@ -27,13 +29,45 @@ public class Shield : MonoBehaviour {
 
 		// move shield in a given direction
 		if(Input.GetKey(up)) {
-			tm.position = new Vector2(tm.parent.position.x + 0, tm.parent.position.y + 1f);
+			if(downdir) {
+				tm.Rotate(0, 0, 180);
+			} else if(leftdir) {
+				tm.Rotate(0, 0, -90);
+			} else if(rightdir) {
+				tm.Rotate(0, 0, 90);
+			}
+			updir = true; downdir = false; leftdir = false; rightdir = false;
+			tm.position = new Vector2(player.transform.position.x + 0, player.transform.position.y + 1f);
 		} else if(Input.GetKey(down)) {
-			tm.position = new Vector2(tm.parent.position.x + 0, tm.parent.position.y - 1f);
+			if(updir) {
+				tm.Rotate(0, 0, 180);
+			} else if(leftdir) {
+				tm.Rotate(0, 0, 90);
+			} else if(rightdir) {
+				tm.Rotate(0, 0, -90);
+			}
+			updir = false; downdir = true; leftdir = false; rightdir = false;
+			tm.position = new Vector2(player.transform.position.x + 0, player.transform.position.y - 1f);
 		} else if(Input.GetKey(right)) {
-			tm.position = new Vector2(tm.parent.position.x + 1f, tm.parent.position.y + 0);
+			if(updir) {
+				tm.Rotate(0, 0, -90);
+			} else if(downdir) {
+				tm.Rotate(0, 0, 90);
+			} else if(leftdir) {
+				tm.Rotate(0, 0, 180);
+			}
+			updir = false; downdir = false; leftdir = false; rightdir = true;
+			tm.position = new Vector2(player.transform.position.x + 1f, player.transform.position.y + 0);
 		} else if(Input.GetKey(left)) {
-			tm.position = new Vector2(tm.parent.position.x - 1f, tm.parent.position.y + 0);
+			if(updir) {
+				tm.Rotate(0, 0, 90);
+			} else if(downdir) {
+				tm.Rotate(0, 0, -90);
+			} else if(rightdir) {
+				tm.Rotate(0, 0, 180);
+			}
+			updir = false; downdir = false; leftdir = true; rightdir = false;
+			tm.position = new Vector2(player.transform.position.x - 1f, player.transform.position.y + 0);
 		}
 	}
 }
